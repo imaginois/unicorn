@@ -1,5 +1,5 @@
 {
-  "name": "cycle-snabbdom-examples",
+  "name": "Unicorn",
   "version": "1.0.0",
   "description": "Examples using Cycle.js with Snabbdom",
   "main": "src/index.js",
@@ -9,8 +9,7 @@
     "prod": "set NODE_ENV=production&& npm run build-prod && node src/server/server.js",
     "start": "set NODE_ENV=development&& node src/server/server.js"
   },
-  "author": "Mike Montoya",
-  "license": "MIT",
+  "author": "Metodi Deribanov",
   "dependencies": {
     "@cycle/dom": "^13.0.0",
     "@cycle/history": "^4.0.2",
