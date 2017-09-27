@@ -46,7 +46,7 @@ server.use(`/img`, express.static(`img`))
 //must be brewed up.  See 'src/app/app.js'
 server.post('/redirect', (req, res) => {
   console.log('Redirect POST received.')
-  res.redirect(302, '/hero-simple')
+  res.redirect(302, '/hero-complex')
 })
 
 // Ignore favicon requests

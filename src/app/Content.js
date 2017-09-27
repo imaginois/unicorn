@@ -11,10 +11,10 @@ const urlMapper = Mapper({query: true})
 const headerLinks = [
   {path: '/', text: 'Color Changer'},
   {path: '/github', text: 'Github Search!'},
-  {path: '/redirect', text: 'Redirection'},
-  {path: '/hero-simple', text: 'Hero Transition (Simple)'},
+  // {path: '/redirect', text: 'Redirection'},
+  // {path: '/hero-simple', text: 'Hero Transition (Simple)'},
   {path: '/hero-complex', text: 'Hero Transition (Complex)'},
-  {path: '/hero-tests', text: 'Hero Transition (Goofy)'},
+  // {path: '/hero-tests', text: 'Hero Transition (Goofy)'},
 ]
 
 //Check link against currenty history driver location
