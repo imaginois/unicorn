@@ -7,14 +7,11 @@ import './styles.scss'
 
 function resultView({
   id,
-  html_url = 'https://github.com/',
-  full_name = 'Unknown Repo Name',
+  html_url = '#',
+  title = 'Unknown Repo Name',
   description = 'No description given.',
-  owner = {
-    html_url: 'https://github.com/',
-    avatar_url: '',
-    login: '?',
-  }}) {
+  picture = '',
+  }) {
   const html = h('div.search-result', {
     key: id,
     style: {
@@ -23,25 +20,22 @@ function resultView({
       remove: {opacity: 0, transform: 'translateY(-100px)'},
     },
   }, [
-    h('a.gh-owner-link', {props: {href: owner.html_url}}, [
-      h('img.gh-avatar',{props: {src: owner.avatar_url}}),
-      owner.login,
-    ]),
-    h('a.gh-link', {props: {href: html_url}}, [
-      h('h1', {}, full_name),
+    h('img.search-avatar',{props: {src: picture}}),
+    h('a.search-link', {props: {href: html_url}}, [
+      h('h1', {}, title),
       description,
     ]),
   ])
   return html
 }
 
-function githubSearch({DOM, HTTP}, {search = ''}, pathname) {
-  const GITHUB_SEARCH_API = 'https://api.github.com/search/repositories?q='
+function Search({DOM, HTTP}, {search = ''}, pathname) {
+  const GITHUB_SEARCH_API = 'http://localhost:3000/search?q='
   //CAN USE THIS DURING TESTING -> const GITHUB_SEARCH_API = 'http://localhost:3000/mocksearch?q='
 
   //Query text
   const query$ = DOM.select('.field').events('input')
-    .debug(() => {console.log(`GH input changed`)})
+    .debug(() => {console.log(`search input changed`)})
     .compose(debounce(500))
     .map(ev => ev.target.value.trim()) //added trim to reduce useless searches
 
@@ -52,45 +46,50 @@ function githubSearch({DOM, HTTP}, {search = ''}, pathname) {
     .filter(query => query.length > 0)
     .map(q => ({
       url: GITHUB_SEARCH_API + encodeURI(q),
-      category: 'github',
+      category: 'search',
     }))
-    .debug((x) => console.log(`GH search request emitted: ${x}`))
+    .debug((x) => console.log(`search request emitted: ${x}`))
     .remember()
 
   // Convert the stream of HTTP responses to virtual DOM elements.
   const searchResponse$ = HTTP
-    .select('github')
+    .select('search')
     .flatten() //Needed because HTTP gives an Observable when you map it
-    .map(res => res.body.items)
-    .startWith([])
-    .debug((x) => console.log(`GH search response emitted: ${x.length} items`))
+    .map(res => res.body)
+    .map((x) => {
+      return x.filter((item) => {
+        return item.title.indexOf('ipsum') > 0
+      })
+    })
+    .debug((x) => console.log(`search response emitted: ${x.length} items`))
+    // .debug((x) => console.log(x))
 
   //loading indication.  true if request is newer than response
   const loading$ = xs.merge(searchRequest$.mapTo(true),searchResponse$.mapTo(false))
     .startWith(false)
     .compose(debounce(250))
-    .debug((x) => console.log(`GH loading status emitted: ${x}`))
+    .debug((x) => console.log(`search loading status emitted: ${x}`))
 
   //Combined state observable which triggers view updates
   const state$ = xs.combine(searchResponse$, loading$)
     .map(([res, loading]) => {
       return {results: res, loading: loading}
     })
-    .debug(() => console.log(`GH state emitted`))
+    .debug(() => console.log(`search state emitted`))
 
   //Convert state to DOM
   const vtree$ = state$
     .map(({results, loading}) =>
-      h('div.page-wrapper', {key: `ghpage`, style: fadeInOutStyle}, [
-        h('div.page.github-search-container', {}, [
-          h('label.label', {}, 'Search Github Repos:'),
+      h('div.page-wrapper', {key: `searchpage`, style: fadeInOutStyle}, [
+        h('div.page.search-container', {}, [
+          h('label.label', {}, 'Search:'),
           h('input.field', {key: 'searchbox', props: {type: 'text', value: search}}),
           h('hr'),
           h('section.search-results', {}, results.map(resultView).concat(loading ? loadingSpinner() : null)),
         ]),
       ])
     )
-    .debug(() => console.log(`GH DOM emitted`))
+    .debug(() => console.log(`search DOM emitted`))
 
   return {
     DOM: vtree$,
@@ -103,4 +102,4 @@ function githubSearch({DOM, HTTP}, {search = ''}, pathname) {
   }
 }
 
-export default githubSearch
+export default Search

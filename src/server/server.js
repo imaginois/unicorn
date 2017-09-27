@@ -55,7 +55,7 @@ if (stripeData.length) {
 
 server.get('/api/stripes', (req, res) => {
   //Log each request
-  console.log(`Github data requested @ ${new Date().toString()}`)
+  console.log(`data requested @ ${new Date().toString()}`)
   res.json(stripeData)
 })
 
@@ -71,7 +71,7 @@ if (continueWatchingData.length) {
 
 server.get('/api/continueWatching', (req, res) => {
   //Log each request
-  console.log(`Github data requested @ ${new Date().toString()}`)
+  console.log(`data requested @ ${new Date().toString()}`)
   res.json(continueWatchingData)
 })
 
@@ -86,12 +86,19 @@ if (allTitlesData.length) {
 
 server.get('/api/allTitles', (req, res) => {
   //Log each request
-  console.log(`Github data requested @ ${new Date().toString()}`)
+  console.log(`data requested @ ${new Date().toString()}`)
   res.json(allTitlesData)
 })
 
-
-
+//Fake api to troubleshoot search page
+server.get('/search', (req, res) => {
+  const searchTerm = req.query.q || ''
+  //Log each request
+  console.log(`search for ${searchTerm} requested @ ${new Date().toString()}`)
+  let modifiedData = JSON.parse(JSON.stringify(allTitlesData)) //clone
+  modifiedData[0].title = `You searched for "${searchTerm}"!`
+  res.json(modifiedData)
+})
 
 
 
@@ -126,22 +133,13 @@ if (theData.length) {
 
 server.get('/data', (req, res) => {
   //Log each request
-  console.log(`Github data requested @ ${new Date().toString()}`)
+  console.log(`data requested @ ${new Date().toString()}`)
   res.json(theData)
 })
 
 
 
 
-//Fake api to troubleshoot github search page
-server.get('/mocksearch', (req, res) => {
-  const searchTerm = req.query.q || ''
-  //Log each request
-  console.log(`Github search for ${searchTerm} requested @ ${new Date().toString()}`)
-  let modifiedData = JSON.parse(JSON.stringify(theData)) //clone
-  modifiedData[0].full_name = `You searched for "${searchTerm}"!`
-  res.json(modifiedData)
-})
 
 //For now, any get requests will send the Index.html
 server.get('/*', (req, res) => {
