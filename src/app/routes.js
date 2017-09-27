@@ -1,6 +1,6 @@
 import {h} from '@cycle/dom'
 import isolate from '@cycle/isolate'
-import Colors from './components/ColorChange'
+import Colors from './components/Home'
 import Github from './components/GithubSearch'
 import HeroComplexList from './components/HeroComplex/List'
 import HeroComplexDetail from './components/HeroComplex/Detail'

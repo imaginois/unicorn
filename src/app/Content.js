@@ -9,11 +9,11 @@ import sampleCombine from 'xstream/extra/sampleCombine'
 const urlMapper = Mapper({query: true})
 
 const headerLinks = [
-  {path: '/', text: 'Color Changer'},
-  {path: '/github', text: 'Github Search!'},
+  {path: '/', text: 'Home'},
+  {path: '/github', text: 'Search'},
   // {path: '/redirect', text: 'Redirection'},
   // {path: '/hero-simple', text: 'Hero Transition (Simple)'},
-  {path: '/hero-complex', text: 'Hero Transition (Complex)'},
+  {path: '/hero-complex', text: 'Movies'},
   // {path: '/hero-tests', text: 'Hero Transition (Goofy)'},
 ]
 
@@ -71,7 +71,7 @@ const Content = (sources, ROOT_SELECTOR) => {
       .map(([dom, location]) => {
         return view(dom, ROOT_SELECTOR, location)
       })
-      .debug(() => {console.log('Content DOM plucked')}),
+      .debug((x) => {console.log('Content DOM plucked', x)}),
     HTTP: route$
       .map(x => x.HTTP)
       .filter(x => !!x)

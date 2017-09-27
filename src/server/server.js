@@ -40,6 +40,38 @@ if (isDeveloping) {
 server.use(`/dist`, express.static(`dist`))
 server.use(`/img`, express.static(`img`))
 
+
+
+
+
+
+//Serve mock data for stripes
+let stripeData = require('./stripes.json')
+if (stripeData.length) {
+  console.log('Data loaded, length = ' + stripeData.length)
+} else {
+  console.log('Data not loaded')
+}
+
+server.get('/stripes', (req, res) => {
+  //Log each request
+  console.log(`Github data requested @ ${new Date().toString()}`)
+  res.json(stripeData)
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Redirection test
 //This simulates a server which replies with a 302/303 redirection after a form POST.
 //The client code can't actually see this redirect url :(, so creative alternatives
@@ -69,6 +101,9 @@ server.get('/data', (req, res) => {
   console.log(`Github data requested @ ${new Date().toString()}`)
   res.json(theData)
 })
+
+
+
 
 //Fake api to troubleshoot github search page
 server.get('/mocksearch', (req, res) => {

@@ -1,5 +1,16 @@
 @import '../../global/constants.scss';
 
+.stripe {
+  background: $darkGray;
+  width: 100%;
+  border: 1px solid $secondaryColor;
+  margin: 10px 0;
+  padding: 5px;
+  &:hover, &.active {
+    border: 1px solid rgb(220, 20, 0);
+  }
+}
+
 .colorBtn, form {
   border: none;
   position: relative;
@@ -15,6 +26,7 @@
     background-color: white;
   }
 }
+
 form button {
   background: white;
   border: none;
