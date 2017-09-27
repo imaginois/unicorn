@@ -13,7 +13,7 @@ const headerLinks = [
   {path: '/github', text: 'Search'},
   // {path: '/redirect', text: 'Redirection'},
   // {path: '/hero-simple', text: 'Hero Transition (Simple)'},
-  {path: '/hero-complex', text: 'Movies'},
+  {path: '/gop/allTitles', text: 'All Titles'},
   // {path: '/hero-tests', text: 'Hero Transition (Goofy)'},
 ]
 

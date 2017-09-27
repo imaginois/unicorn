@@ -46,14 +46,14 @@ server.use(`/img`, express.static(`img`))
 
 
 //Serve mock data for stripes
-let stripeData = require('./stripes.json')
+let stripeData = require('./data/stripes.json')
 if (stripeData.length) {
   console.log('Data loaded, length = ' + stripeData.length)
 } else {
   console.log('Data not loaded')
 }
 
-server.get('/stripes', (req, res) => {
+server.get('/api/stripes', (req, res) => {
   //Log each request
   console.log(`Github data requested @ ${new Date().toString()}`)
   res.json(stripeData)
@@ -61,6 +61,34 @@ server.get('/stripes', (req, res) => {
 
 
 
+//Serve mock data for continueWatching stripe
+let continueWatchingData = require('./data/continueWatching.json')
+if (continueWatchingData.length) {
+  console.log('Data loaded, length = ' + continueWatchingData.length)
+} else {
+  console.log('Data not loaded')
+}
+
+server.get('/api/continueWatching', (req, res) => {
+  //Log each request
+  console.log(`Github data requested @ ${new Date().toString()}`)
+  res.json(continueWatchingData)
+})
+
+
+//Serve mock data for allTitles stripe
+let allTitlesData = require('./data/allTitles.json')
+if (allTitlesData.length) {
+  console.log('Data loaded, length = ' + allTitlesData.length)
+} else {
+  console.log('Data not loaded')
+}
+
+server.get('/api/allTitles', (req, res) => {
+  //Log each request
+  console.log(`Github data requested @ ${new Date().toString()}`)
+  res.json(allTitlesData)
+})
 
 
 
@@ -89,7 +117,7 @@ server.get('/favicon.ico',(req, res) => {
 })
 
 //Serve data to the Hero-Complex Example
-let theData = require('./data.json')
+let theData = require('./data/data.json')
 if (theData.length) {
   console.log('Data loaded, length = ' + theData.length)
 } else {

@@ -1,23 +1,23 @@
 import {h} from '@cycle/dom'
 import isolate from '@cycle/isolate'
-import Colors from './components/Home'
+import Stripe from './components/Stripe'
 import Github from './components/GithubSearch'
-import HeroComplexList from './components/HeroComplex/List'
-import HeroComplexDetail from './components/HeroComplex/Detail'
+import Gop from './components/Gop/List'
+import AssetDetail from './components/Gop/Detail'
 import HeroSimple from './components/HeroSimple'
 import HeroTests from './components/HeroTests'
 import Redirect from './components/Redirect'
 
 const routes = {
-  '/': Colors,
+  '/': Stripe,
   '/github': isolate(Github),
   '/redirect': isolate(Redirect),
   '/hero-simple': HeroSimple,
   '/hero-tests': HeroTests,
   '/just-dom': h('h1', {}, 'This route only returns a <h1>.'),
-  '/hero-complex/:owner/:repo': HeroComplexDetail,
-  '/hero-complex': HeroComplexList,
-  '*': Colors,
+  '/asset/:state': AssetDetail,
+  '/gop/:unicorn': Gop,
+  '*': Stripe,
 }
 
 export default routes

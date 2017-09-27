@@ -1,0 +1,18 @@
+[
+  {
+    "id": 26316966,
+    "name": "continueWatching",
+    "full_name": "Continue Watching",
+    "description": "Start where you left off"
+  },{
+    "id": 26316966,
+    "name": "movies",
+    "full_name": "Movies",
+    "description": "Predifined filter for Movie titles"
+  },{
+    "id": 26316966,
+    "name": "allTitles",
+    "full_name": "All Titles",
+    "description": "See all available titles to watch"
+  }
+]
