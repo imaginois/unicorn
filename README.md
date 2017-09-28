@@ -1,3 +1,16 @@
+#TODO
+
+- [ ] Mercury
+- [x] Venus
+- [x] Earth (Orbit/Moon)
+- [x] Mars
+- [ ] Jupiter
+- [ ] Saturn
+- [ ] Uranus
+- [ ] Neptune
+- [ ] Comet Haley
+
+
 # Cycle version & Stream Library
 This branch uses Cycle Diversity w/ xstream.
 
