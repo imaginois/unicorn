@@ -1,3 +1,11 @@
+#TODO
+
+- [x] Export List as a separata component
+- [x] Export Item as a separata component
+- [ ] add hero transitions
+- [ ] add svg animations
+
+
 # Cycle version & Stream Library
 This branch uses Cycle Diversity w/ xstream.
 
