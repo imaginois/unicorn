@@ -1,43 +1,28 @@
 @import '../../global/constants.scss';
 
-.hero-item {
-  display: block;
-  text-align: center;
-  padding: 1rem;
-  margin: 1rem;
-  width: 166px;
-  background-color: rgba(black,0.6);
-  box-shadow: 1px 2px 5px -1px black;
-  img {
-    height: 166px;
-  }
-  .repo {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin: 0
-  }
-  .small {
-    font-size: 0.9rem;
-    height : 50px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    color: rgb(100,100,100)
-  }
-}
-
-.hero-details-avatar {
+.asset-details-avatar {
   display: block;
   width: 100px;
   height: 100px;
   margin: 0.5rem auto;
 }
-.hero-detail {
+.asset-detail {
   text-align: center;
   background-color: rgba(white,0.6);
   padding: 1rem;
   box-shadow: $standardShadow;
   margin: 1rem;
   color: $darkGray;
+  img {
+    height: 200px;
+    width: 70%;
+    margin-bottom: 30px;
+  }
+  .content {
+    background: $darkGray;
+    padding: 10px;
+    text-align: left;
+  }
 
   button {
     background-color: rgba(white,0.7);

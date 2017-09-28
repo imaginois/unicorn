@@ -40,11 +40,6 @@ if (isDeveloping) {
 server.use(`/dist`, express.static(`dist`))
 server.use(`/img`, express.static(`img`))
 
-
-
-
-
-
 //Serve mock data for stripes
 let stripeData = require('./data/stripes.json')
 if (stripeData.length) {
@@ -58,8 +53,6 @@ server.get('/api/stripes', (req, res) => {
   console.log(`data requested @ ${new Date().toString()}`)
   res.json(stripeData)
 })
-
-
 
 //Serve mock data for continueWatching stripe
 let continueWatchingData = require('./data/continueWatching.json')
@@ -100,7 +93,16 @@ server.get('/search', (req, res) => {
   res.json(modifiedData)
 })
 
+//Fake api to troubleshoot search page
+server.get('/item', (req, res) => {
+  const itemId = req.query.id || ''
+  console.log("itemId", itemId);
 
+  const filteredResult = allTitlesData
+    .filter((x) => x._id == itemId)
+  console.log("filteredResult", filteredResult);
+  res.json(filteredResult)
+})
 
 
 

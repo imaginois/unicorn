@@ -8,7 +8,7 @@ import './styles.scss'
 function resultView({
   id,
   html_url = '#',
-  title = 'Unknown Repo Name',
+  title = 'No title',
   description = 'No description given.',
   picture = '',
   }) {
@@ -30,8 +30,7 @@ function resultView({
 }
 
 function Search({DOM, HTTP}, {search = ''}, pathname) {
-  const GITHUB_SEARCH_API = 'http://localhost:3000/search?q='
-  //CAN USE THIS DURING TESTING -> const GITHUB_SEARCH_API = 'http://localhost:3000/mocksearch?q='
+  const SEARCH_API = 'http://localhost:3000/search?q='
 
   //Query text
   const query$ = DOM.select('.field').events('input')
@@ -39,16 +38,15 @@ function Search({DOM, HTTP}, {search = ''}, pathname) {
     .compose(debounce(500))
     .map(ev => ev.target.value.trim()) //added trim to reduce useless searches
 
-  // Requests for Github repositories happen when the input field changes,
   // debounced by 500ms, ignoring empty input field.
   const searchRequest$ = query$
     .startWith(search)
     .filter(query => query.length > 0)
     .map(q => ({
-      url: GITHUB_SEARCH_API + encodeURI(q),
+      url: SEARCH_API + encodeURI(q),
       category: 'search',
     }))
-    .debug((x) => console.log(`search request emitted: ${x}`))
+    .debug((x) => console.log(x))
     .remember()
 
   // Convert the stream of HTTP responses to virtual DOM elements.
@@ -56,7 +54,10 @@ function Search({DOM, HTTP}, {search = ''}, pathname) {
     .select('search')
     .flatten() //Needed because HTTP gives an Observable when you map it
     .map(res => res.body)
+    .startWith([])
     .map((x) => {
+      // use combine
+      console.log(query$.map(q => { return {pathname: pathname, search: `?search=${q}`}}).last())
       return x.filter((item) => {
         return item.title.indexOf('ipsum') > 0
       })

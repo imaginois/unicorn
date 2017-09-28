@@ -7,23 +7,26 @@ import './styles.scss'
 
 function resultView({
   id,
-  title = 'Unknown Repo Name',
+  name = 'defaultstripe',
+  full_name = 'Unknown Repo Name',
   description = 'No description given.',
-  picture = '',
-  }) {
-  return h('a.hero.hero-item', {
+  owner = {
+    avatar_url: '',
+    login: '?',
+  }}) {
+  return h('a.stripe', {
     key: id,
-    attrs: {href: '/hero-complex/' + title},
-    //hero: {id: `repo${id}`},
+    attrs: {href: '/list/gop/' + name},
+    hero: {id: `repo${id}`},
   }, [
-    h('img.hero', {props: {src: picture}, hero: {id: `repo${id}`}}),
-    h('h1.hero.repo', {}, title),
+    h('img', {props: {src: owner.avatar_url}, hero: {id: `repo${id}`}}),
+    h('h1.title', {}, full_name),
     h('div.small', {}, description),
   ])
 }
 
-function List({HTTP}, values = {type: 'stripe', unicorn: 'allTitles'}) {
-  const GET_REQUEST_URL = 'http://localhost:3000/api/' + values.unicorn //'https://api.github.com/users/cyclejs/repos'
+function Home({HTTP}) {
+  const GET_REQUEST_URL = 'http://localhost:3000/api/stripes' //'https://api.github.com/users/cyclejs/repos'
 
   //Send HTTP request to get data for the page
   //.shareReplay(1) is needed because this observable
@@ -32,14 +35,14 @@ function List({HTTP}, values = {type: 'stripe', unicorn: 'allTitles'}) {
   const dataRequest$ = xs
     .of({
       url: GET_REQUEST_URL,
-      category: 'hero-list',
+      category: 'stripe-list',
     })
     .debug(() => console.log(`Hero list: Search request subscribed`))
     .remember()
 
   // Convert the stream of HTTP responses to virtual DOM elements.
   const dataResponse$ = HTTP
-    .select('hero-list')
+    .select('stripe-list')
     .filter(res$ => {
       console.dir(res$)
       return checkRequestUrl(res$, GET_REQUEST_URL)
@@ -63,10 +66,10 @@ function List({HTTP}, values = {type: 'stripe', unicorn: 'allTitles'}) {
   //Map state into DOM elements
   const vtree$ = state$
     .map(({results, loading}) =>
-      h('div.page-wrapper', {key: `Listpage`, style: fadeInStyle}, [
-        h('div', {style: {height: '100%', overflow: 'auto'}}, [
-          h('h1', {}, 'All titles'),
-          h('section.flex', {}, results.map(resultView).concat(loading ? loadingSpinner() : null)),
+      h('div.page-wrapper', {key: `Homepage`, style: fadeInStyle}, [
+        h('div.home', {style: {height: '100%', overflow: 'auto'}}, [
+          h('h1', {}, 'Home'),
+          h('section.flex.stripes.hero', {}, results.map(resultView).concat(loading ? loadingSpinner() : null)),
         ]),
       ])
     )
@@ -78,4 +81,4 @@ function List({HTTP}, values = {type: 'stripe', unicorn: 'allTitles'}) {
   }
 }
 
-export default List
+export default Home

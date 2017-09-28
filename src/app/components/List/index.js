@@ -6,27 +6,25 @@ import {fadeInStyle} from '../../global/styles'
 import './styles.scss'
 
 function resultView({
-  id,
-  name = 'defaultstripe',
-  full_name = 'Unknown Repo Name',
+  _id = 0,
+  guid = 0,
+  title = 'No title',
   description = 'No description given.',
-  owner = {
-    avatar_url: '',
-    login: '?',
-  }}) {
-  return h('a.stripe', {
-    key: id,
-    attrs: {href: '/gop/' + name},
-    hero: {id: `repo${id}`},
+  picture = '',
+  }) {
+  return h('a.hero.list-item', {
+    key: guid,
+    attrs: {href: '/asset/' + _id},
+    //hero: {id: `repo${id}`},
   }, [
-    h('img', {props: {src: owner.avatar_url}, hero: {id: `repo${id}`}}),
-    h('h1.title', {}, full_name),
+    h('img', {props: {src: picture}}),
+    h('div.small.bold', {}, title),
     h('div.small', {}, description),
   ])
 }
 
-function HeroList({HTTP}) {
-  const GET_REQUEST_URL = 'http://localhost:3000/api/stripes' //'https://api.github.com/users/cyclejs/repos'
+function List({HTTP}, values = {type: 'stripe', unicorn: 'allTitles'}) {
+  const GET_REQUEST_URL = 'http://localhost:3000/api/' + values.unicorn //'https://api.github.com/users/cyclejs/repos'
 
   //Send HTTP request to get data for the page
   //.shareReplay(1) is needed because this observable
@@ -35,14 +33,14 @@ function HeroList({HTTP}) {
   const dataRequest$ = xs
     .of({
       url: GET_REQUEST_URL,
-      category: 'stripe-list',
+      category: 'hero-list',
     })
     .debug(() => console.log(`Hero list: Search request subscribed`))
     .remember()
 
   // Convert the stream of HTTP responses to virtual DOM elements.
   const dataResponse$ = HTTP
-    .select('stripe-list')
+    .select('hero-list')
     .filter(res$ => {
       console.dir(res$)
       return checkRequestUrl(res$, GET_REQUEST_URL)
@@ -66,10 +64,10 @@ function HeroList({HTTP}) {
   //Map state into DOM elements
   const vtree$ = state$
     .map(({results, loading}) =>
-      h('div.page-wrapper', {key: `herolistpage`, style: fadeInStyle}, [
-        h('div.home', {style: {height: '100%', overflow: 'auto'}}, [
-          h('h1', {}, 'Home'),
-          h('section.flex.stripes', {}, results.map(resultView).concat(loading ? loadingSpinner() : null)),
+      h('div.page-wrapper', {key: `Listpage`, style: fadeInStyle}, [
+        h('div', {style: {height: '100%', overflow: 'auto'}}, [
+          h('h1', {}, 'All titles'),
+          h(`section.flex.${values.type}-list`, {}, results.map(resultView).concat(loading ? loadingSpinner() : null)),
         ]),
       ])
     )
@@ -81,4 +79,4 @@ function HeroList({HTTP}) {
   }
 }
 
-export default HeroList
+export default List

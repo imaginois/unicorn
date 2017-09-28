@@ -10,10 +10,11 @@ const urlMapper = Mapper({query: true})
 
 const headerLinks = [
   {path: '/', text: 'Home'},
-  {path: '/github', text: 'Search'},
+  {path: '/search', text: 'Search'},
   // {path: '/redirect', text: 'Redirection'},
   // {path: '/hero-simple', text: 'Hero Transition (Simple)'},
-  {path: '/gop/allTitles', text: 'All Titles'},
+  {path: '/list/gop/allTitles', text: 'GOP All Titles'},
+  {path: '/list/stripe/allTitles', text: 'Stripe All Titles'},
   // {path: '/hero-tests', text: 'Hero Transition (Goofy)'},
 ]
 

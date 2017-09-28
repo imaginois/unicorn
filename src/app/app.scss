@@ -31,6 +31,10 @@ a > * {
   pointer-events:none;
 }
 
+.bold {
+  font-weight:bold;
+}
+
 header {
   background: $darkGray;
   line-height: $headerHeight;
