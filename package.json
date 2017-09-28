@@ -2,7 +2,7 @@
   "name": "Unicorn",
   "version": "1.0.0",
   "description": "Examples using Cycle.js with Snabbdom",
-  "main": "src/index.js",
+  "main": "dist/bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-prod": "./node_modules/.bin/webpack --config webpack.production.js -p --progress --colors",

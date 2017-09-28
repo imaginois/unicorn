@@ -8,19 +8,17 @@ import './styles.scss'
 function resultView({
   id,
   name = 'defaultstripe',
-  full_name = 'Unknown Repo Name',
+  title = 'No title',
   description = 'No description given.',
-  owner = {
-    avatar_url: '',
-    login: '?',
-  }}) {
+  picture = '',
+  }) {
   return h('a.stripe', {
     key: id,
     attrs: {href: '/list/gop/' + name},
     hero: {id: `repo${id}`},
   }, [
-    h('img', {props: {src: owner.avatar_url}, hero: {id: `repo${id}`}}),
-    h('h1.title', {}, full_name),
+    h('img', {props: {src: picture}}),
+    h('h1.title', {}, title),
     h('div.small', {}, description),
   ])
 }
