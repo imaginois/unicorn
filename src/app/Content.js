@@ -30,7 +30,7 @@ function isCurrentRoute(link, location) {
 }
 
 const createLink = ({path, text}, location) =>
-  h('a', {class: {active: isCurrentRoute(path, location)}, attrs: {href: path}}, text)
+  h('a.s', {class: {active: isCurrentRoute(path, location)}, attrs: {href: path}}, text)
 
 const header = (his) => h('header', {}, headerLinks.map(x => createLink(x, his)))
 

@@ -23,8 +23,8 @@ function resultView({
   ])
 }
 
-function List({HTTP}, values = {type: 'stripe', unicorn: 'allTitles'}) {
-  const GET_REQUEST_URL = 'http://localhost:3000/api/' + values.unicorn //'https://api.github.com/users/cyclejs/repos'
+function List({HTTP}, values = {type: 'stripe', provider: 'allTitles'}) {
+  const GET_REQUEST_URL = 'http://localhost:3000/api/' + values.provider //'https://api.github.com/users/cyclejs/repos'
 
   //Send HTTP request to get data for the page
   //.shareReplay(1) is needed because this observable

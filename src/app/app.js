@@ -23,6 +23,15 @@ const app = (sources) => {
     })
     .filter(x => !!x)
 
+  sources.DOM.Cursor = sources.DOM
+    .select('document')
+    .events('mousemove')
+    .map(event => {
+      console.log(event)
+      return extractPathName(event)
+    })
+    .filter(x => !!x)
+
   //POST requests which need redirection.
   //Intercepting server 302,303 destination url isn't possible.
   //Set custom header key 'redirectUrl' with each post request that will require redirection.
@@ -45,6 +54,8 @@ const app = (sources) => {
 
   //Potential spot to wrap the route component with an overall layout.
   const view$ = content.DOM
+
+  view$.debug((x) => console.log(x))
 
   return {
     DOM: view$,
