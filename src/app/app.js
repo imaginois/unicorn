@@ -23,14 +23,24 @@ const app = (sources) => {
     })
     .filter(x => !!x)
 
-  sources.DOM.Cursor = sources.DOM
-    .select('document')
-    .events('mousemove')
-    .map(event => {
-      console.log(event)
-      return extractPathName(event)
-    })
-    .filter(x => !!x)
+  const mousePosition$ = sources.Mouse.positions()
+  const mouseEvent$ = sources.Mouse.events()
+  const click$ = sources.Mouse.click()
+
+  const clickCount$ = click$
+    .fold((acc) => acc + 1, 0)
+
+  const mouseEvents$ = xs.combine(
+    mousePosition$,
+    clickCount$,
+    mouseEvent$
+  )
+
+  // mouseEvents$.subscribe({
+  //   next: ev => console.log(ev),
+  // })
+
+  sources.CURSOR = mouseEvents$
 
   //POST requests which need redirection.
   //Intercepting server 302,303 destination url isn't possible.
@@ -54,8 +64,6 @@ const app = (sources) => {
 
   //Potential spot to wrap the route component with an overall layout.
   const view$ = content.DOM
-
-  view$.debug((x) => console.log(x))
 
   return {
     DOM: view$,

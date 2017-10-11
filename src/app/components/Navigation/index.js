@@ -2,6 +2,14 @@
 import {div, input, p} from '@cycle/dom'
 import './styles.scss'
 
+const simulateClick = function sc() {
+  const eventClick = new MouseEvent('mousemove')
+  document.querySelector('header a').dispatchEvent(eventClick)
+
+  console.log('evt', eventClick)
+}
+setTimeout(simulateClick, 3000)
+
 function Navigation({DOM}) {
   const view$ = DOM.select('document').events('mousemove')
             // .map(event => event.target.checked)
@@ -12,8 +20,10 @@ function Navigation({DOM}) {
               if (document.querySelector('.selected')) {
                 document.querySelector('.selected').classList.remove('selected')
               }
-              console.log('e.target.classList', e.target.classList)
-              e.target.classList.add('selected')
+              if (e.target.classList.contains('s')) {
+                e.target.classList.add('selected')
+              }
+              console.log('e.target.classList', e)
             })
             .map(e => div([
               input({attrs: {type: 'checkbox'}}), 'Checkbox content is ' + e,

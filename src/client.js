@@ -7,6 +7,7 @@ import {run} from '@cycle/xstream-run'
 import {makeDOMDriver} from '@cycle/dom'
 import {makeHTTPDriver} from '@cycle/http'
 import {makeHistoryDriver} from '@cycle/history'
+import {makeMouseDriver} from './app/drivers/mouseDriver'
 import {createHistory} from 'history'
 import app from './app/app'
 
@@ -32,6 +33,7 @@ const drivers = {
   }),
   HTTP: makeHTTPDriver(),
   History: makeHistoryDriver(history),
+  Mouse: makeMouseDriver(),
 }
 
 //Initialize Cycle.js!
