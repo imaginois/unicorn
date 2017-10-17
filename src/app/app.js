@@ -1,5 +1,7 @@
 import xs from 'xstream'
 import Content from './Content'
+import Navigation from './components/Navigation'
+
 const ROOT_SELECTOR = '.app-container'
 
 function extractPathName(event) {
@@ -23,25 +25,6 @@ const app = (sources) => {
     })
     .filter(x => !!x)
 
-  const mousePosition$ = sources.Mouse.positions()
-  const mouseEvent$ = sources.Mouse.events()
-  const click$ = sources.Mouse.click()
-
-  const clickCount$ = click$
-    .fold((acc) => acc + 1, 0)
-
-  const mouseEvents$ = xs.combine(
-    mousePosition$,
-    clickCount$,
-    mouseEvent$
-  )
-
-  // mouseEvents$.subscribe({
-  //   next: ev => console.log(ev),
-  // })
-
-  sources.CURSOR = mouseEvents$
-
   //POST requests which need redirection.
   //Intercepting server 302,303 destination url isn't possible.
   //Set custom header key 'redirectUrl' with each post request that will require redirection.
@@ -59,6 +42,20 @@ const app = (sources) => {
 
   const content = Content(sources, ROOT_SELECTOR)
 
+  const navigation$ = Navigation(sources)
+
+  sources.NAV = navigation$
+
+  sources.NAV.SEL
+    .subscribe({
+      // next: console.log.bind(console)
+    })
+
+  sources.NAV.KEY
+    .subscribe({
+      // next: console.log.bind(console)
+    })
+
   //some routes will emit query params, which need to update the browser's url bar
   const urlWithQuery$ = content.Query
 
@@ -67,6 +64,7 @@ const app = (sources) => {
 
   return {
     DOM: view$,
+    NAV: sources.NAV,
     HTTP: content.HTTP,
     History: xs.merge(url$ ,urlWithQuery$)
       .debug(x => {

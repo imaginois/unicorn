@@ -67,6 +67,10 @@ header {
       opacity: 1;
       color: rgb(220,50,0);
     }
+    &.active.selected {
+      border-bottom: 2px solid #fff;
+      color: #fff;
+    }
   }
 }
 .app-container {

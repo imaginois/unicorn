@@ -65,7 +65,6 @@ const Content = (sources, ROOT_SELECTOR) => {
     .remember() //Hot Module Replacement needed this to be shareReplay(1) instead of just share() when using Rxjs4
 
   return {
-    CURSOR: sources.CURSOR,
     DOM: route$
       .map(x => x.DOM)
       .filter(x => !!x)

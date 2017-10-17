@@ -12,7 +12,7 @@ function resultView({
   description = 'No description given.',
   picture = '',
   }) {
-  return h('a.stripe', {
+  return h('a.stripe.s', {
     key: id,
     attrs: {href: '/list/gop/' + name},
     hero: {id: `repo${id}`},
@@ -23,21 +23,8 @@ function resultView({
   ])
 }
 
-function Home({HTTP, CURSOR}) {
+function Home({HTTP, NAV}) {
   const GET_REQUEST_URL = 'http://localhost:3000/api/stripes' //'https://api.github.com/users/cyclejs/repos'
-
-  const mouseEvent$ = CURSOR
-    .map(ev => ev[2])
-    .debug(x => console.log(x))
-
-  const cursorPosition$ = mouseEvent$
-    .map(ev => {
-      return {
-        x: ev.x,
-        y: ev.y,
-      }
-    })
-    .debug(x => console.log(x))
 
   //Send HTTP request to get data for the page
   //.shareReplay(1) is needed because this observable
@@ -68,18 +55,18 @@ function Home({HTTP, CURSOR}) {
     .debug((x) => console.log(`Hero List: loading status emitted: ${x}`))
 
   //Combined state observable which triggers view updates
-  const state$ = xs.combine(dataResponse$, loading$, cursorPosition$)
-    .map(([res, loading, cursorPosition]) => {
-      return {results: res, loading: loading, cursorPosition: cursorPosition}
+  const state$ = xs.combine(dataResponse$, loading$)
+    .map(([res, loading]) => {
+      return {results: res, loading: loading}
     })
     .debug(() => console.log(`Hero List: state emitted`))
 
   //Map state into DOM elements
   const pageDOM$ = state$
-    .map(({results, loading, cursorPosition}) =>
+    .map(({results, loading}) =>
       h('div.page-wrapper', {key: `Homepage`, style: fadeInStyle}, [
         h('div.cursorXY', [
-          h('div.test', [`Cursor is at: ${cursorPosition.x}, ${cursorPosition.y}`]),
+          h('div.test', [`Cursor is at:`]),
         ]),
         h('div.home', {style: {height: '100%', overflow: 'auto'}}, [
           h('h1', {}, 'Home'),
@@ -92,7 +79,7 @@ function Home({HTTP, CURSOR}) {
   const vtree$ = pageDOM$
 
   return {
-    CURSOR: CURSOR,
+    NAV: NAV,
     DOM: vtree$,
     HTTP: dataRequest$,
   }

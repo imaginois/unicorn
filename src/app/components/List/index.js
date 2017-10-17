@@ -12,7 +12,7 @@ function resultView({
   description = 'No description given.',
   picture = '',
   }) {
-  return h('a.hero.list-item', {
+  return h('a.hero.list-item.s', {
     key: guid,
     attrs: {href: '/asset/' + _id},
     //hero: {id: `repo${id}`},
@@ -23,7 +23,7 @@ function resultView({
   ])
 }
 
-function List({HTTP}, values = {type: 'stripe', provider: 'allTitles'}) {
+function List({HTTP, NAV}, values = {type: 'stripe', provider: 'allTitles'}) {
   const GET_REQUEST_URL = 'http://localhost:3000/api/' + values.provider //'https://api.github.com/users/cyclejs/repos'
 
   //Send HTTP request to get data for the page
@@ -74,6 +74,7 @@ function List({HTTP}, values = {type: 'stripe', provider: 'allTitles'}) {
     .debug(() => console.log(`Hero list: DOM emitted`))
 
   return {
+    NAV: NAV,
     DOM: vtree$,
     HTTP: dataRequest$,
   }
