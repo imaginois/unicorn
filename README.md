@@ -1,3 +1,13 @@
+# Pre-requisites 
+## Tools
+- Cycle.js
+- xstream
+- Cerebral
+- Google Material IO
+## Debug
+- Time Travel Debugger
+## Testing
+
 #TODO
 
 - [x] Export List as a separata component
