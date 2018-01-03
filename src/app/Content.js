@@ -5,6 +5,10 @@ import {h} from '@cycle/dom'
 import dropRepeats from 'xstream/extra/dropRepeats'
 import sampleCombine from 'xstream/extra/sampleCombine'
 
+import {Sidenav} from 'snabbdom-material'
+
+console.log(Sidenav)
+
 //Initialize url mapper
 const urlMapper = Mapper({query: true})
 
