@@ -1,3 +1,7 @@
+# Key Features
+- Convergence
+- Realtime
+
 # Pre-requisites 
 ## Tools
 - Cycle.js
