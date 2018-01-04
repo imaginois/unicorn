@@ -2,6 +2,7 @@
 - Convergence
 - Realtime
 - Easy to debug
+- Navigable with D-pad and 3 other buttons
 
 # Pre-requisites 
 ## Tools
