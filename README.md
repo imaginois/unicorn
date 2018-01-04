@@ -1,6 +1,7 @@
 # Key Features
 - Convergence
 - Realtime
+- Easy to debug
 
 # Pre-requisites 
 ## Tools
@@ -10,6 +11,7 @@
 - Google Material IO
 ## Debug
 - Time Travel Debugger
+- Write System Info about running proccesses in a Proc filezΩΩΩΩΩ
 ## Testing
 
 #TODO
