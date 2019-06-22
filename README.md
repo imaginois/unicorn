@@ -55,3 +55,9 @@ For client-side hot reloading:
  3. `npm install`
  4. `npm start`
  5. Open your browser to `http://localhost:3000/`
+
+
+# Ways to navigate a ui
+## Gaia interface
+## Calculus
+## Custum function definitions
