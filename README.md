@@ -1,8 +1,11 @@
 # Key Features
+- Extreme performance
 - Convergence
 - Realtime
-- Easy to debug
+- Easy to debug (time travel debugger)
+- Fractal design
 - Navigable with D-pad and 3 other buttons
+- Fully functional
 
 # Pre-requisites 
 ## Tools
