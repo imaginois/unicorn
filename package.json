@@ -43,7 +43,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "json-loader": "^0.5.4",
     "node-noop": "^1.0.0",
-    "node-sass": "^3.10.1",
+    "node-sass": "^4.13.1",
     "postcss-loader": "^0.13.0",
     "sass-loader": "^4.0.2",
     "snabbdom-material": "^0.6.5",
